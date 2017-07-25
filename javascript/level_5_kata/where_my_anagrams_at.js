@@ -19,7 +19,7 @@ function anagrams(word, words) {
   var newWord = word.split('').sort('').join('');
   var answer = [];
   
-  for(var i=0; i<words.length; i++){
+  for(var i = 0; i < words.length; i++){
     var x = words[i].split('').sort().join('');
     if(x === newWord){
       answer.push(words[i]);
@@ -27,3 +27,10 @@ function anagrams(word, words) {
   }
   return answer;
 }
+
+
+function anagrams(word, words) {
+  word = word.split('').sort().join('');
+  return words.filter(function(v) {return word == v.split('').sort().join('');});
+}
+
