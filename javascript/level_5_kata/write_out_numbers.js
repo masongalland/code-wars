@@ -18,8 +18,13 @@ function transform(num){
         case num > 99 && num < 1000:
             str = `${dg[numStr[0]]} hundred`
             if(numStr[1] !== "0"){
-                str += ` ${numStr[2] !== "0" ? tw[numStr[1]] + "-" + dg[numStr[2]] : tw[numStr[1]]}`
+                str += ` ${numStr[1] === "1" ? dg[numStr.substr(1, 2)] : numStr[2] !== "0" ? tw[numStr[1]] + "-" + dg[numStr[2]] : tw[numStr[1]]}`
             }
+            else if(numStr[2] !== "0"){
+                str += ` ${dg[numStr[2]]}`
+            }
+            break;
+        case num > 999 && num < 10000:
             
             break;
         default:
@@ -30,5 +35,5 @@ function transform(num){
 
 }
 
-var test = transform(547);
+var test = transform(390);
 test 
