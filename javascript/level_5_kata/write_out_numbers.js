@@ -24,8 +24,34 @@ function transform(num){
                 str += ` ${dg[numStr[2]]}`
             }
             break;
-        case num > 999 && num < 10000:
-            
+        case num > 999 && num < 20000:
+            str = `${dg[numStr.slice(0, -3)]} thousand`
+
+            if(numStr[numStr.length - 3] !== "0"){
+                str += ` ${dg[numStr[numStr.length - 3]]} hundred`
+                str += ` ${numStr[1] === "1" ? dg[numStr.substr(1, 2)] : numStr[2] !== "0" ? tw[numStr[1]] + "-" + dg[numStr[2]] : tw[numStr[1]]}`
+            }
+            else if(numStr[2] !== "0"){
+                str += ` ${dg[numStr[2]]}`
+            }
+            break;
+        case num > 99999 && num < 1000000:
+            str = `${dg[numStr[0]]} hunred`
+            if(numStr[1] !== "0"){
+                str += ` ${numStr[1] === "1" ? dg[numStr.substr(1, 2)] : numStr[2] !== "0" ? tw[numStr[1]] + "-" + dg[numStr[2]] : tw[numStr[1]]}`
+            }
+            else if(numStr[2] !== "0"){
+                str += ` ${dg[numStr[2]]}`
+            }
+            str += " thousand"
+
+            str += ` ${dg[numStr[3]]} hunred`
+            if(numStr[4] !== "0"){
+                str += ` ${numStr[4] === "1" ? dg[numStr.substr(1, 2)] : numStr[5] !== "0" ? tw[numStr[4]] + "-" + dg[numStr[5]] : tw[numStr[4]]}`
+            }
+            else if(numStr[5] !== "0"){
+                str += ` ${dg[numStr[5]]}`
+            }
             break;
         default:
             str = "invalid number"
@@ -35,5 +61,5 @@ function transform(num){
 
 }
 
-var test = transform(390);
-test 
+var test = transform(3600);
+test
