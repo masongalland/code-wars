@@ -12,3 +12,29 @@ function digitize(n) {
     return parseInt(i);
   });
 }
+
+
+function digitize2(n){
+  var str = n.toString();
+  var arr = [];
+  for(var i = 0; i < str.length; i++){
+    var num = Number(str[i])
+    arr.unshift(num)
+  }
+  return arr;
+}
+
+
+function digitize3(n){
+  var str = n.toString();
+  var arr = [];
+  for(var i = str.length -1; i >= 0; i--){
+    var num = Number(str[i])
+    arr.push(num)
+  }
+  return arr;
+}
+ 
+
+var test = digitize3(348597);
+test
