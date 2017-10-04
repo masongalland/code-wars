@@ -29,6 +29,8 @@ Constraints:
 The number of different digit products in a.
 */
 
+//Solution 1:
+
 function uniqueDigitProducts(a) {
   var answer = [];
   for(var i=0; i<a.length; i++){
@@ -50,4 +52,12 @@ function uniqueDigitProducts(a) {
     }
   }
   return answer.length;
+}
+
+//Solution 2:
+
+function uniqueDigitProducts2(a) {
+  return a.map( (x) => x.toString().split('').map(Number).reduce( (a,b) => a * b))
+                        .filter( (y,i,arr) => arr.indexOf(y) === i).length;
+  
 }
