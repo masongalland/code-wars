@@ -27,3 +27,6 @@ function validBraces(str) {
     }
     return true;
   }
+
+
+  //If the matching closing brace is not the next item in the array, we need to make sure there are only matching items inside
