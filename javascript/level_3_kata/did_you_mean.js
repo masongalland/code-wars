@@ -25,7 +25,7 @@ function Dictionary(words) {
   this.words = words;
 }
 
-Dictionary.prototype.findMostSimilar = function(term) {
+Dictionary.prototype.findMostSimilar = function (term) {
   if (this.words.indexOf(term) !== -1) return term;
   var possibilities = [];
   for (var i = 0; i < term.length; i++) {
@@ -49,7 +49,10 @@ Dictionary.prototype.findMostSimilar = function(term) {
 };
 
 ///////
-//
+//make matches an array of match arrays for each item in this.words
+//do the forLoop that adds items to finalMatches for each array in the matches array
+//join results insite above-mentioned loop.
+//check length of each item compared to the length of the parameter
 
 function Dictionary(words) {
   this.words = words;
@@ -65,28 +68,37 @@ Dictionary.prototype.findMostSimilar = function(term) {
   }
   var matches = [];
   this.words.forEach((e, i) => {
+    var subMatches = []
     possibilities.forEach((ele, ind) => {
       var check = new RegExp(ele, "g");
       if (e.match(check)) {
-        matches.push(e.match(check)[0]);
+        subMatches.push(e.match(check)[0]);
       }
     });
+    matches.push(subMatches)
   });
-  console.log(matches);
   var nextStart = 0;
-  var finalMatches = [matches[0]];
-  for (var k = 0; k < finalMatches.length; k++) {
-    for (var l = nextStart; l < matches.length; l++) {
-      if (!finalMatches[k].includes(matches[l])) {
-        finalMatches.push(matches[l]);
-        nextStart = l;
-        break;
+  
+  
+  var answerMatches = []
+  
+  matches.forEach((e,i)=> {
+    var finalMatches = [e[0]];
+    for (var k = 0; k < finalMatches.length; k++) {
+      for (var l = nextStart; l < e.length; l++) {
+        if (!finalMatches[k].includes(e[l])) {
+          finalMatches.push(e[l]);
+          nextStart = l;
+          break;
+        }
       }
     }
-  }
-  console.log(finalMatches);
-  return this.words[matches.indexOf(Math.min(...matches))];
+    answerMatches.push(finalMatches.join(""))
+  })
+  console.log(answerMatches)
+  var answerLengths = answerMatches.map((e,i)=>{
+    return this.words[i].length - e.length
+  })
+  console.log(answerLengths);
+  return this.words[answerLengths.indexOf(Math.min(...answerLengths))];
 };
-
-things = new Dictionary(["stars", "mars", "wars", "codec", "codewars"]);
-things.findMostSimilar("coddwars"); // must return "codewars"
