@@ -97,7 +97,13 @@ Dictionary.prototype.findMostSimilar = function(term) {
   })
   console.log(answerMatches)
   var answerLengths = answerMatches.map((e,i)=>{
-    return this.words[i].length - e.length
+    if(term.length < this.words[i].length){
+      return this.words[i].length - e.length
+    }
+    else{
+      return term.length - e.length
+    }
+    
   })
   console.log(answerLengths);
   return this.words[answerLengths.indexOf(Math.min(...answerLengths))];
