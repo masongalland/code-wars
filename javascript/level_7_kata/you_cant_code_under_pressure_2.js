@@ -9,7 +9,7 @@ var myCounter = new Counter();
 
 myCounter.increment();
 myCounter.increment();
-Test.assertEquals(myCounter.check(), 2)
+myCounter.check() // --> 2
 
 
 */
