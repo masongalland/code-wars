@@ -23,7 +23,7 @@ The right side letters and their power:
 The other letters don't have power and are only victims.
 The * bombs kills the adjacent letters ( i.e. aa*aa => a___a, **aa** => ______ );
 
-Example
+Example:
 
 alphabetWar("s*zz");           //=> Right side wins!
 alphabetWar("*zd*qm*wp*bs*"); //=> Let's fight again!
