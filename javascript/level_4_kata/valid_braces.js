@@ -9,12 +9,14 @@
 
 var opening = ["(", "[", "{"];
 var closing = [")", "]", "}"];
+var cc = [];
 
 function looper(arr){
+  console.log(arr)
   let oi = opening.indexOf(arr[0]);
   let ci = closing.indexOf(arr[arr.length - 1])
   if(arr.length === 0) {
-    return 1
+    return 1;
   }
   if(oi === -1 || ci === -1){
     return false;
@@ -26,6 +28,7 @@ function looper(arr){
         return false;
       }else {
         //recurse
+        cc.push(i);
         return looper(arr.slice(1, i))
         break;
       }
@@ -46,11 +49,12 @@ function validBraces(str) {
 
   for (var j = 0; j < str.length - 1; j++) {
     let test = looper(str.slice(j))
-    console.log(test)
     if(test === false){
       return false;
     }else {
-      j = test + j;
+      if(cc.length === 0) cc.push(1)
+      j = cc[0] + j;
+      cc = []
     }
 
   }
