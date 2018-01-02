@@ -1,10 +1,30 @@
-//not done yet
+//best answer
 
-  //if first element is not an opening brace and if last element is not a closing brace, return false.
-  //loop through string until you find matching brace.
-  //if length of contents inside matching braces is odd, return false
-  //if length is even, loop through contents and check for same thing
-  //once inner loop is finished, set outer loop's i variable to one more than the index of the matched brace, and continue
+function validBraces(braces){
+  var matches = { '(':')', '{':'}', '[':']' };
+  var stack = [];
+  var currentChar;
+
+  for (var i=0; i<braces.length; i++) {
+    currentChar = braces[i];
+
+    if (matches[currentChar]) { // opening braces
+      stack.push(currentChar);
+    } else { // closing braces
+      if (currentChar !== matches[stack.pop()]) {
+        return false;
+      }
+    }
+  }
+
+  return stack.length === 0; // any unclosed braces left?
+}
+
+
+
+
+//My very long answer.
+
 
 
 var opening = ["(", "[", "{"];
