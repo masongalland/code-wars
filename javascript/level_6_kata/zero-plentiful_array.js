@@ -3,13 +3,14 @@
 */
 
 function zeroPlentiful(arr){
-    arr.forEach((e,i,a) => {
+   const modified = arr.map((e,i,a) => {
         if(e !== 0){
-        a[i] = "_"
+        e = "_"
         }
+        return e;
     })
 
-    const sequences = arr.join('').split("_")
+    const sequences = arr.join('').split("_").filter(e => e !== "")
 
     return sequences.every((e) => e.length >= 4) ? sequences.length : 0
 }
