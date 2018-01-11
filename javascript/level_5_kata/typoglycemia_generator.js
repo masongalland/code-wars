@@ -52,13 +52,24 @@ function scrambledWords(str) {
     const arr = str.split(" ");
     const answer = arr.map((e,i,a) => {
         if(e.length === 1) return e;
-        let punctuation = e.match(/[-',.]/),
-            filtered = e.replace(/[-',.]/, ""),
+        let myRegex = /[-',.]/g,
+            result,
+            punctuation = [],
+            filtered = e.replace(myRegex, ""),
             middle = filtered.slice(1, filtered.length - 1).split('').sort().join(''),
             copy = filtered[0] + middle + filtered[filtered.length - 1];
-        console.log(filtered, middle, e[0], e[e.length - 1])
-        return punctuation ? copy.splice(punctuation.index, 0, punctuation[0]) : copy
 
+        while(result = myRegex.exec(e)) {
+            punctuation.push(result)
+        }
+
+        if(punctuation.length > 0){
+            for(let i = 0; i < punctuation.length; i++){
+                copy = copy.splice(punctuation[i].index, 0, punctuation[i][0])
+            }
+        }
+
+        return copy;
     })
     return answer.join(' ');
 }
