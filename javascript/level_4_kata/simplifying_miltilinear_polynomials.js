@@ -12,40 +12,55 @@ http://www.codewars.com/kata/55f89832ac9a66518f000118/train/javascript
 
 */
 
+
 function evaluate(op, num1, num2) {
-  switch(op) {
-    case "+":
-      return +num1 + +num2;
-    case "-":
-      return +num1 - +num2;
-  }
+	switch (op) {
+		case "+":
+			let sum = +num1 + +num2;
+			return sum >= 0 ? `+${sum}` : sum;
+		case "-":
+			let sum2 = +num1 - +num2;
+			return sum2 >= 0 ? `+${sum2}` : sum2;
+	}
 }
 
 function simplify(poly) {
-  var arr = poly.replace(/([+-])/g, " $1").trim().split(" ")
-  var alph = arr.map(e => e[0] + e.slice(1).split('').sort().join(''))
-  alph[0] = alph[0].replace(/^([^+-])/, "+$1" )
+	var arr = poly
+		.replace(/([+-])/g, " $1")
+		.trim()
+		.split(" ");
+	var alph = arr.map(
+		e =>
+			e[0] +
+			e
+				.slice(1)
+				.split("")
+				.sort()
+				.join("")
+	);
+	alph[0] = alph[0].replace(/^([^+-])/, "+$1");
 
-  for(let i = 0; i < alph.length; i++) {
-    alph[i] = alph[i].replace(/^(.)(\D)/, "$11$2")
-    let num1 = alph[i].slice(0,2);
-    let v1 = alph[i].slice(2);
+	for (let i = 0; i < alph.length; i++) {
+		alph[i] = alph[i].replace(/^(.)(\D)/, "$11$2");
+		let v1 = alph[i].slice(2);
 
-    for(let j = i + 1; j < alph.length; j++ ) {
-      alph[j] = alph[j].replace(/^(.)(\D)/, "$11$2")
-      let v2 = alph[j].slice(2)
-      if(v1 === v2) {
-        let op = alph[j][0];
-        let num2 = alph[j][1];
-        let sum = evaluate(op, num1, num2)
-        if(sum === 1) sum = ""
-        alph[i] = alph[i].replace(/[+-]\d/, sum)
-        alph.splice(j, 1);
-        console.log(alph)
-
-      }
+		for (let j = i + 1; j < alph.length; j++) {
+			alph[j] = alph[j].replace(/^(.)(\D)/, "$11$2");
+			let v2 = alph[j].slice(2);
+			if (v1 === v2) {
+				let op = alph[j][0];
+				let num2 = alph[j][1];
+				let sum = evaluate(op, alph[i].slice(0, 2), num2);
+				if (sum === 1) sum = "";
+				alph[i] = alph[i].replace(/[+-]\d/, sum);
+				alph.splice(j, 1);
+			}
+		}
+    alph[i] = alph[i].replace(/([+-])1/, "$1")
+		if (alph[i][1] === "0") {
+      alph.splice(i, 1);
+      i--
     }
-
-  }
-  console.log(alph)
+	}
+  console.log(alph);
 }
