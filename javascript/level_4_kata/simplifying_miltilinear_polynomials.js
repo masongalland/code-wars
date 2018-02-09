@@ -56,11 +56,27 @@ function simplify(poly) {
 				alph.splice(j, 1);
 			}
 		}
-    alph[i] = alph[i].replace(/([+-])1/, "$1")
+		alph[i] = alph[i].replace(/([+-])1/, "$1");
 		if (alph[i][1] === "0") {
-      alph.splice(i, 1);
-      i--
-    }
+			alph.splice(i, 1);
+			i--;
+		}
 	}
-  console.log(alph);
+
+	alph.sort((a, b) => {
+		let aVar = a.match(/[^-+\d]\D*/)[0];
+		let bVar = b.match(/[^-+\d]\D*/)[0];
+		if (aVar.length !== bVar.length) {
+			return aVar.length - b.match(/[^-+\d]\D*/)[0].length;
+		} else {
+			for (let i = 0; i < aVar.length; i++) {
+				if (aVar[i] !== bVar[i]) {
+					return aVar.charCodeAt(i) > bVar.charCodeAt(i);
+				}
+			}
+		}
+  });
+  alph[0] = alph[0].replace(/^\+/, "")
+
+  return alph.join("")
 }
