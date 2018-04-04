@@ -21,3 +21,11 @@ const hungrySeven = a => {
     return hungrySeven(s);
   }
 };
+
+function hungrySeven(arr) {
+  joined = arr.join("");
+  while (joined.match("789")) {
+    joined = joined.replace(/789/g, "897");
+  }
+  return joined.split("").map(Number);
+}
